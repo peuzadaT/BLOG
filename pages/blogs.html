@@ -4,59 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog - Achado Digital</title>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-
     <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-
     <header>
-        <div class="container">
-            <a href="../index.html" class="logo-link">
-                <img src="../img/png.svg" alt="Logo Achado Digital" class="logo">
-                <h1>Achado Digital</h1>
-            </a>
-            <nav class="main-nav">
-                <a href="produtos.html">Produtos</a>
-                <a href="blogs.html">Blog</a>
-                <a href="ofertas.html">Ofertas</a>
-            </nav>
-            <div class="top-nav">
-                <a href="https://instagram.com" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="https://pinterest.com" target="_blank" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
-                <a href="fale-conosco.html" class="contact-link">Fale Conosco</a>
-            </div>
-        </div>
-    </header>
-
+        </header>
     <main>
         <div class="container">
             <h2 class="page-title">Blog Achado Digital</h2>
             <p class="page-subtitle">Todos os nossos reviews, guias e dicas em um só lugar.</p>
-        
-            <div class="article-grid">
-                <a href="#" class="article-card">
-                    <img src="https://via.placeholder.com/400x250/cccccc/969696?text=Fones+Bluetooth" alt="Post" class="article-card-image">
-                    <div class="article-card-content">
-                        <h3>Os 7 Melhores Fones Bluetooth por Menos de R$150</h3>
-                        <p>Analisamos dezenas de modelos e separamos os campeões em qualidade de som, bateria e preço justo...</p>
-                        <div class="article-card-footer"><span>22 de Julho de 2025</span></div>
-                    </div>
-                </a>
-                </div>
+            <div id="article-grid-container" class="article-grid"></div>
+            <div id="article-view-container" style="display: none;"></div>
         </div>
     </main>
-
     <footer>
-        <div class="container">
-            <p>&copy; 2025 Achado Digital. Feito com 🧡 para economizar de verdade.</p>
-        </div>
-    </footer>
-
+        </footer>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="blog.js"></script>
 </body>
 </html>
