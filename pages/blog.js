@@ -1,7 +1,7 @@
 // /pages/blog.js (Versão Final Corrigida)
 
 const SUPABASE_URL = 'https://kfgnzzyyiwjnnqqocthe.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtmZ256enl5aXdqbm5xcW9jdGhlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMyMTY5NTYsImV4cCI6MjA2ODc5Mjk1Nn0.CbixmtD5nE5vSppUzuwGiDg9mco_e-agbnxjVHq6NAo';
+const SUPABASE_ANON_KEY = 'sb_publishable_AeqnognjK0lUB9yegzIHiw_U0vcNSt6'; // A sua Publishable Key
 
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 

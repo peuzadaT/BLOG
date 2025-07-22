@@ -15,14 +15,14 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: var(--fonte-principal); background-color: var(--cinza-claro); color: var(--cor-texto-suave); display: flex; flex-direction: column; min-height: 100vh; }
 .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-main { flex-grow: 1; padding: 40px 0; overflow-x: hidden; /* Previne scroll horizontal causado pelo carrossel */ }
+main { flex-grow: 1; padding: 40px 0; overflow-x: hidden; }
 .section-title { text-align: center; font-size: 2.2em; color: var(--cor-escura); margin-bottom: 10px; }
 .section-subtitle { text-align: center; font-size: 1.1em; color: var(--cor-texto-suave); margin-bottom: 40px; }
 .section-button { display: block; width: fit-content; margin: 40px auto 0; background-color: var(--cor-primaria); color: var(--cor-fundo-claro); padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: 500; transition: background-color 0.3s; }
 .section-button:hover { background-color: var(--cor-escura); }
 
 /* --- CABEÇALHO --- */
-header { background-color: var(--cor-fundo-claro); padding: 15px 0; box-shadow: var(--sombra); position: sticky; top: 0; z-index: 1000; /* Z-index alto para ficar sobre tudo */ }
+header { background-color: var(--cor-fundo-claro); padding: 15px 0; box-shadow: var(--sombra); position: sticky; top: 0; z-index: 1000; }
 header .container { display: flex; justify-content: space-between; align-items: center; }
 .logo-link { display: flex; align-items: center; text-decoration: none; color: var(--cor-escura); flex-shrink: 0; }
 .logo { width: 50px; height: 50px; margin-right: 15px; }
@@ -42,52 +42,13 @@ header h1 { font-size: 1.5em; font-weight: 700; color: var(--cor-texto); }
 .carousel-wrapper { display: flex; flex-direction: column; align-items: center; padding-top: 40px; width: 100%; }
 .carousel-container { position: relative; width: 100%; height: 450px; perspective: 1500px; display: flex; justify-content: center; align-items: center; }
 .carousel { position: relative; width: 200px; height: 200px; transform-style: preserve-3d; transition: transform 0.6s ease-in-out; }
-.carousel-card {
-    position: absolute;
-    width: 320px;
-    height: 420px;
-    left: 50%;
-    top: 50%;
-    margin-left: -160px;
-    margin-top: -210px;
-    cursor: pointer;
-    user-select: none;
-    transform-style: preserve-3d;
-    transition: opacity 0.4s, filter 0.4s, transform 0.6s;
-    opacity: 0.6;
-    filter: blur(1.5px);
-}
-.carousel-card.active {
-    opacity: 1;
-    filter: none;
-}
-.carousel-card.active:hover {
-    transform: var(--card-transform) scale(1.05) !important;
-}
-.card-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
-    transition: transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-.carousel-card.flipped .card-inner {
-    transform: rotateY(180deg);
-}
-.card-front, .card-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    background: var(--cor-fundo-claro);
-    border-radius: 10px;
-    box-shadow: var(--sombra);
-    border: 1px solid #eee;
-    overflow: hidden;
-}
-.card-back {
-    transform: rotateY(180deg);
-}
+.carousel-card { position: absolute; width: 320px; height: 420px; left: 50%; top: 50%; margin-left: -160px; margin-top: -210px; cursor: pointer; user-select: none; transform-style: preserve-3d; transition: opacity 0.4s, filter 0.4s, transform 0.6s; opacity: 0.6; filter: blur(1.5px); }
+.carousel-card.active { opacity: 1; filter: none; }
+.carousel-card.active:hover { transform: var(--card-transform) scale(1.05) !important; }
+.card-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.carousel-card.flipped .card-inner { transform: rotateY(180deg); }
+.card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; background: var(--cor-fundo-claro); border-radius: 10px; box-shadow: var(--sombra); border: 1px solid #eee; overflow: hidden; }
+.card-back { transform: rotateY(180deg); }
 .carousel-card-content { padding: 20px; display: flex; flex-direction: column; height: 100%; }
 .carousel-card-image { width: 100%; height: 180px; object-fit: cover; background-color: #e9e9e9; border-radius: 8px; margin-bottom: 15px; }
 .carousel-card-content h3 { font-size: 1.4em; color: var(--cor-texto); margin-bottom: 10px; line-height: 1.3; }
@@ -99,240 +60,69 @@ header h1 { font-size: 1.5em; font-weight: 700; color: var(--cor-texto); }
 .control-btn { background: var(--cor-fundo-claro); border: 1px solid #ddd; color: var(--cor-texto-suave); width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s ease; }
 .control-btn:hover { background: var(--cor-primaria); color: var(--cor-fundo-claro); border-color: var(--cor-primaria); transform: scale(1.1); }
 
-/* --- PÁGINAS DE CONTEÚDO (Títulos, Blog, etc.) --- */
+/* --- PÁGINAS DE CONTEÚDO (Títulos, etc.) --- */
 .page-title { font-size: 2.8em; color: var(--cor-texto); text-align: center; margin-bottom: 10px; }
 .page-subtitle { text-align: center; font-size: 1.1em; color: var(--cor-texto-suave); margin-bottom: 50px; }
-.article-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px;
-}
-.article-card {
-    background: var(--cor-fundo-claro);
-    border-radius: 8px;
-    box-shadow: var(--sombra);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    text-decoration: none;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-.article-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-}
-.article-card-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    background-color: #e9e9e9;
-}
-.article-card-content {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-}
-.article-card-content h3 {
-    font-size: 1.4em;
-    color: var(--cor-texto);
-    margin-bottom: 10px;
-}
-.article-card-content p {
-    color: var(--cor-texto-suave);
-    font-size: 0.95em;
-    line-height: 1.6;
-    flex-grow: 1;
-}
-.article-card-footer {
-    margin-top: 20px;
-    padding-top: 15px;
-    border-top: 1px solid #f0f0f0;
-    font-size: 0.85em;
-    color: var(--cor-texto-suave);
-}
+
+/* --- PÁGINA DO BLOG (Layout de Cartões/Lista) --- */
+.article-card { background: var(--cor-fundo-claro); border-radius: 8px; box-shadow: var(--sombra); overflow: hidden; display: flex; flex-direction: column; text-decoration: none; transition: transform 0.3s, box-shadow 0.3s; }
+.article-card-content { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
+.article-card-footer { margin-top: 20px; padding-top: 15px; border-top: 1px solid #f0f0f0; font-size: 0.85em; color: var(--cor-texto-suave); }
 
 /* --- RODAPÉ --- */
 footer { background-color: var(--cor-escura); color: var(--cor-fundo-claro); text-align: center; padding: 20px 0; margin-top: auto; }
+
 /* --- ESTILOS PARA PÁGINA DE ARTIGO INDIVIDUAL --- */
-.article-header {
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-.article-header .category-tag {
-    display: inline-block;
-    background-color: var(--cor-primaria);
-    color: var(--cor-fundo-claro);
-    padding: 5px 15px;
-    border-radius: 20px;
-    font-size: 0.9em;
-    font-weight: 500;
-    margin-bottom: 15px;
-}
-
-.article-header .article-title {
-    font-size: 2.8em;
-    color: var(--cor-escura);
-    margin-bottom: 15px;
-    line-height: 1.2;
-}
-
-.article-header .author-info {
-    font-size: 0.9em;
-    color: var(--cor-texto-suave);
-}
-
-.article-main-image {
-    width: 100%;
-    max-height: 500px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 40px;
-}
-
-.article-content {
-    max-width: 800px; /* Limita a largura do texto para melhor leitura */
-    margin: 0 auto;
-    font-size: 1.1em;
-    line-height: 1.8;
-}
-
-.article-content h3 {
-    font-size: 1.8em;
-    color: var(--cor-escura);
-    margin-top: 40px;
-    margin-bottom: 20px;
-}
-
-.article-content p, 
-.article-content ul,
-.article-content ol {
-    margin-bottom: 20px;
-}
-
-.article-content a {
-    color: var(--cor-primaria);
-    text-decoration: none;
-    font-weight: 600;
-}
-.article-content a:hover {
-    text-decoration: underline;
-}
+.article-header { text-align: center; margin-bottom: 40px; }
+.article-header .category-tag { display: inline-block; background-color: var(--cor-primaria); color: var(--cor-fundo-claro); padding: 5px 15px; border-radius: 20px; font-size: 0.9em; font-weight: 500; margin-bottom: 15px; }
+.article-header .article-title { font-size: 2.8em; color: var(--cor-escura); margin-bottom: 15px; line-height: 1.2; }
+.article-header .author-info { font-size: 0.9em; color: var(--cor-texto-suave); }
+.article-main-image { width: 100%; max-height: 500px; object-fit: cover; border-radius: 10px; margin-bottom: 40px; }
+.article-content { max-width: 800px; margin: 0 auto; font-size: 1.1em; line-height: 1.8; }
+.article-content h3 { font-size: 1.8em; color: var(--cor-escura); margin-top: 40px; margin-bottom: 20px; }
+.article-content p, .article-content ul, .article-content ol { margin-bottom: 20px; }
+.article-content a { color: var(--cor-primaria); text-decoration: none; font-weight: 600; }
+.article-content a:hover { text-decoration: underline; }
 
 /* --- SEÇÃO DE COMENTÁRIOS --- */
-.comments-section {
-    max-width: 800px;
-    margin: 60px auto 0;
-    padding-top: 40px;
-    border-top: 2px solid #eee;
-}
-
-.comments-section h3 {
-    font-size: 1.8em;
-    color: var(--cor-escura);
-    margin-bottom: 30px;
-}
-
-.comment-form .form-group {
-    margin-bottom: 20px;
-}
-
-.comment-form label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-    color: var(--cor-texto);
-}
-
-.comment-form input,
-.comment-form textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-family: var(--fonte-principal);
-    font-size: 1em;
-}
-
-.comment-form button {
-    background-color: var(--cor-primaria);
-    color: var(--cor-fundo-claro);
-    padding: 12px 30px;
-    border-radius: 50px;
-    border: none;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    font-size: 1em;
-}
-
-.comment-form button:hover {
-    background-color: var(--cor-escura);
-}
-
-.comment-list {
-    margin-top: 40px;
-    list-style: none;
-}
-
-.comment-list li {
-    padding: 20px;
-    background: var(--cor-fundo-claro);
-    border: 1px solid #eee;
-    border-radius: 8px;
-    margin-bottom: 20px;
-}
-
-.comment-author {
-    font-weight: 600;
-    color: var(--cor-texto);
-    margin-bottom: 5px;
-}
-
-.comment-date {
-    font-size: 0.8em;
-    color: var(--cor-texto-suave);
-    margin-bottom: 10px;
-}
-/* /style.css -> Adicionar ao final do ficheiro */
+.comments-section { max-width: 800px; margin: 60px auto 0; padding-top: 40px; border-top: 2px solid #eee; }
+.comments-section h3 { font-size: 1.8em; color: var(--cor-escura); margin-bottom: 30px; }
+.comment-form .form-group { margin-bottom: 20px; }
+.comment-form label { display: block; margin-bottom: 8px; font-weight: 500; color: var(--cor-texto); }
+.comment-form input, .comment-form textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-family: var(--fonte-principal); font-size: 1em; }
+.comment-form button { background-color: var(--cor-primaria); color: var(--cor-fundo-claro); padding: 12px 30px; border-radius: 50px; border: none; font-weight: 500; cursor: pointer; transition: background-color 0.3s; font-size: 1em; }
+.comment-form button:hover { background-color: var(--cor-escura); }
+.comment-list { margin-top: 40px; list-style: none; }
+.comment-list li { padding: 20px; background: var(--cor-fundo-claro); border: 1px solid #eee; border-radius: 8px; margin-bottom: 20px; }
+.comment-author { font-weight: 600; color: var(--cor-texto); margin-bottom: 5px; }
+.comment-date { font-size: 0.8em; color: var(--cor-texto-suave); margin-bottom: 10px; }
 
 /* --- NOVOS ESTILOS PARA LISTA DE ARTIGOS (Layout Refinado) --- */
-
-/* Transforma a grelha numa lista de uma só coluna */
 .article-grid {
     display: flex;
     flex-direction: column;
-    gap: 60px; /* Aumenta o espaçamento entre os artigos */
-    max-width: 800px; /* Limita a largura para melhor leitura */
-    margin: 0 auto; /* Centra a lista na página */
+    gap: 60px;
+    max-width: 800px;
+    margin: 0 auto;
 }
-
-/* Ajusta o estilo do cartão para o novo layout */
 .article-card {
     box-shadow: 0 5px 25px rgba(0,0,0,0.07);
     border: 1px solid #f0f0f0;
 }
-
 .article-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 12px 35px rgba(0,0,0,0.08);
 }
-
-/* A CORREÇÃO MAIS IMPORTANTE: IMAGEM SEM CORTES */
 .article-card-image {
-    height: auto; /* Remove a altura fixa, permitindo que a imagem defina a sua própria altura */
-    aspect-ratio: 16 / 9; /* Garante uma proporção consistente (opcional, mas recomendado) */
-    object-fit: cover; /* Mantém o cover para preencher o aspect-ratio, mas sem altura fixa, não corta o conteúdo principal */
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
 }
-
-/* Melhora a tipografia dentro do cartão */
 .article-card-content h3 {
-    font-size: 1.8em; /* Título maior e com mais destaque */
+    font-size: 1.8em;
     line-height: 1.3;
 }
-
 .article-card-content p {
-    font-size: 1.05em; /* Texto ligeiramente maior para conforto de leitura */
+    font-size: 1.05em;
     line-height: 1.7;
 }

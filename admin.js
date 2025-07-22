@@ -1,11 +1,15 @@
-// /admin.js (Versão 3.2 - Com ícones e CRUD completo)
+// /admin.js (Versão Final com a Chave Correta)
 
 const SUPABASE_URL = 'https://kfgnzzyyiwjnnqqocthe.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtmZ256enl5aXdqbm5xcW9jdGhlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMyMTY5NTYsImV4cCI6MjA2ODc5Mjk1Nn0.CbixmtD5nE5vSppUzuwGiDg9mco_e-agbnxjVHq6NAo';
+const SUPABASE_ANON_KEY = 'sb_publishable_AeqnognjK0lUB9yegzIHiw_U0vcNSt6'; // A sua Publishable Key
 
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+// ... (todo o resto do código do admin.js continua exatamente igual)
+// O ficheiro completo está abaixo para garantir que não há erros.
+
 const initTinyMCE = () => {
+    if (tinymce.get('full_content')) return;
     tinymce.init({
         selector: '#full_content',
         plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
@@ -17,6 +21,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const authView = document.getElementById('auth-view');
     const dashboardView = document.getElementById('admin-dashboard-view');
     const loginForm = document.getElementById('login-form');
+    // ... todos os outros seletores ...
+
+    // ... todas as outras funções ...
+    
+    // Para garantir, aqui está o ficheiro completo e limpo:
     const articleForm = document.getElementById('article-form');
     const articleFormContainer = document.getElementById('article-form-container');
     const logoutBtn = document.getElementById('logout-btn');
@@ -52,34 +61,23 @@ document.addEventListener('DOMContentLoaded', () => {
         articleFormContainer.style.display = 'block';
         articleFormContainer.scrollIntoView({ behavior: 'smooth' });
     };
-
     const hideForm = () => {
         articleFormContainer.style.display = 'none';
         articleForm.reset();
     };
-
     const loadArticles = async () => {
         const { data, error } = await supabaseClient.from('articles').select('id, title').order('created_at', { ascending: false });
         if (error) return console.error('Erro ao carregar artigos:', error);
         articlesListUl.innerHTML = '';
         data.forEach(article => {
-            articlesListUl.innerHTML += `
-                <li>
-                    <span>${article.title}</span>
-                    <div class="article-actions">
-                        <button class="btn-edit" data-id="${article.id}"><i class="fa-solid fa-pencil"></i> Editar</button>
-                        <button class="btn-delete" data-id="${article.id}"><i class="fa-solid fa-trash"></i> Apagar</button>
-                    </div>
-                </li>`;
+            articlesListUl.innerHTML += `<li><span>${article.title}</span><div class="article-actions"><button class="btn-edit" data-id="${article.id}"><i class="fa-solid fa-pencil"></i> Editar</button><button class="btn-delete" data-id="${article.id}"><i class="fa-solid fa-trash"></i> Apagar</button></div></li>`;
         });
     };
-
     const deleteArticle = async (id) => {
         const { error } = await supabaseClient.from('articles').delete().match({ id });
         if (error) alert('Erro ao apagar artigo.');
         else await loadArticles();
     };
-
     const checkUserAndRedirect = async () => {
         const { data: { user } } = await supabaseClient.auth.getUser();
         if (user) {
@@ -92,7 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
             dashboardView.style.display = 'none';
         }
     };
-
     newArticleBtn.addEventListener('click', () => showForm('create'));
     cancelEditBtn.addEventListener('click', hideForm);
     imageFileInput.addEventListener('change', (e) => {
@@ -102,23 +99,19 @@ document.addEventListener('DOMContentLoaded', () => {
             imagePreview.style.display = 'block';
         }
     });
-
     loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const { error } = await supabaseClient.auth.signInWithPassword({ email: loginForm.email.value, password: loginForm.password.value });
         if (error) alert('Erro no login: ' + error.message);
         else checkUserAndRedirect();
     });
-
     logoutBtn.addEventListener('click', async () => {
         await supabaseClient.auth.signOut();
         checkUserAndRedirect();
     });
-
     articlesListUl.addEventListener('click', async (e) => {
         const targetButton = e.target.closest('button');
         if (!targetButton) return;
-        
         const articleId = targetButton.dataset.id;
         if (targetButton.classList.contains('btn-delete')) {
             if (confirm('Tem a certeza que quer apagar este artigo?')) {
@@ -131,33 +124,31 @@ document.addEventListener('DOMContentLoaded', () => {
             showForm('edit', data);
         }
     });
-
     articleForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         submitBtn.disabled = true;
         submitBtn.textContent = 'A processar...';
-        
         const articleId = document.getElementById('article-id').value;
         const imageFile = imageFileInput.files[0];
         let imageUrl = (imagePreview.src.startsWith('http') || imagePreview.src.startsWith('blob:')) ? imagePreview.src : null;
-
+        const { data: { user } } = await supabaseClient.auth.getUser();
+        if (!user) {
+            alert('Sessão expirada. Faça login novamente.');
+            submitBtn.disabled = false; return;
+        }
         if (imageFile) {
             const fileName = `${Date.now()}-${imageFile.name}`;
             const { error } = await supabaseClient.storage.from('article-images').upload(fileName, imageFile, { upsert: true });
             if (error) {
                 alert('Erro no upload: ' + error.message);
-                submitBtn.disabled = false;
-                return;
+                submitBtn.disabled = false; return;
             }
             imageUrl = supabaseClient.storage.from('article-images').getPublicUrl(fileName).data.publicUrl;
         }
-
         if (!imageUrl && !articleId) {
              alert('Selecione uma imagem para um novo artigo.');
-             submitBtn.disabled = false;
-             return;
+             submitBtn.disabled = false; return;
         }
-
         const articleData = {
             title: document.getElementById('title').value,
             category: document.getElementById('category').value,
@@ -165,17 +156,18 @@ document.addEventListener('DOMContentLoaded', () => {
             full_content: tinymce.get('full_content').getContent(),
             image_url: imageUrl
         };
-
-        const { error } = articleId
-            ? await supabaseClient.from('articles').update(articleData).match({ id: articleId })
-            : await supabaseClient.from('articles').insert([articleData]);
-
-        if (error) {
-            alert('Erro ao guardar o artigo: ' + error.message);
+        let response;
+        if (articleId) {
+            response = await supabaseClient.from('articles').update(articleData).match({ id: articleId });
+        } else {
+            articleData.author_id = user.id;
+            response = await supabaseClient.from('articles').insert([articleData]);
+        }
+        if (response.error) {
+            alert('Erro ao guardar o artigo: ' + response.error.message);
         } else {
             alert(articleId ? 'Artigo atualizado!' : 'Artigo publicado!');
         }
-        
         hideForm();
         submitBtn.disabled = false;
         await loadArticles();

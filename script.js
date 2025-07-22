@@ -1,15 +1,16 @@
-// /script.js (Versão Final Corrigida)
+// /script.js
+
 
 const SUPABASE_URL = 'https://kfgnzzyyiwjnnqqocthe.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtmZ256enl5aXdqbm5xcW9jdGhlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTMyMTY5NTYsImV4cCI6MjA2ODc5Mjk1Nn0.CbixmtD5nE5vSppUzuwGiDg9mco_e-agbnxjVHq6NAo';
+const SUPABASE_ANON_KEY = 'sb_publishable_AeqnognjK0lUB9yegzIHiw_U0vcNSt6'; // A sua Publishable Key
 
+// Inicializa o cliente Supabase
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
 
 document.addEventListener('DOMContentLoaded', () => {
     const carousel = document.getElementById("custom-carousel");
-    if (!carousel) return; // Se não estiver na página inicial, não faz nada
-
-    // --- Definição das Funções ---
+    if (!carousel) return;
 
     const fetchLatestArticles = async () => {
         const { data, error } = await supabaseClient
@@ -29,11 +30,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const buildCarouselCards = (articles) => {
         carousel.innerHTML = '';
         if (articles.length === 0) return;
-        
+
         articles.forEach((article, index) => {
             const card = document.createElement('div');
             card.className = 'carousel-card';
             card.dataset.index = index;
+
             card.innerHTML = `
                 <div class="card-inner">
                     <div class="card-front">
@@ -51,7 +53,8 @@ document.addEventListener('DOMContentLoaded', () => {
                              <a href="pages/blogs.html#${article.id}" class="read-full-btn">Ver no Blog</a>
                         </div>
                     </div>
-                </div>`;
+                </div>
+            `;
             carousel.appendChild(card);
         });
     };
@@ -59,11 +62,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const initializeCarouselLogic = () => {
         const cards = carousel.querySelectorAll(".carousel-card");
         if (cards.length === 0) return;
-        
+
         const prevBtn = document.getElementById("prev-btn");
         const nextBtn = document.getElementById("next-btn");
-        let currentIndex = 0, theta = 0;
-        const totalCards = cards.length, angle = 360 / totalCards;
+
+        let currentIndex = 0;
+        let theta = 0;
+        const totalCards = cards.length;
+        const angle = 360 / totalCards;
 
         function getRadius() {
             if (window.innerWidth <= 576) return 220;
@@ -80,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.style.setProperty('--card-transform', transformValue);
             });
         }
-
+        
         function updateActiveCard() {
             currentIndex = Math.round(-theta / angle) % totalCards;
             if (currentIndex < 0) currentIndex += totalCards;
@@ -114,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.key === "ArrowRight") nextCard();
         });
         window.addEventListener("resize", () => { arrangeCards(); rotateCarousel(); });
-        
+
         arrangeCards();
         rotateCarousel();
     };
@@ -125,6 +131,5 @@ document.addEventListener('DOMContentLoaded', () => {
         initializeCarouselLogic();
     };
 
-    // --- Inicialização ---
     loadHomepage();
 });
