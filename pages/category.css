@@ -1,0 +1,72 @@
+/* ================================================== */
+/* --- ESTILOS FINAIS PARA O CARD PLATINA 3D --- */
+/* ================================================== */
+
+/* Grelha de produtos */
+.product-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; padding: 40px 0; }
+.card-wrap { margin: 10px; transform: perspective(800px); transform-style: preserve-3d; cursor: pointer; width: 340px; }
+
+/* Cartão e efeito 3D */
+.product-card {
+    position: relative; width: 100%; height: 520px;
+    background-color: #fff; border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.card-wrap:hover .product-card { box-shadow: 0 25px 50px rgba(0,0,0,0.15); }
+
+.card-bg {
+    position: absolute; top: 0; left: 0; width: 100%; height: 50%;
+    background-repeat: no-repeat; background-position: center; background-size: cover;
+    border-radius: 15px 15px 0 0;
+    transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.card-wrap:hover .card-bg { transform: scale(1.05); }
+
+/* Área de informações */
+.card-info {
+    position: absolute; top: 45%; left: 0; width: 100%; height: 55%;
+    padding: 25px;
+    background-color: #fff;
+    border-radius: 15px 15px 0 0;
+    display: flex; flex-direction: column;
+}
+
+/* Título e resumo */
+.product-title { font-size: 1.5em; color: var(--cor-texto); margin-bottom: 8px; line-height: 1.3; }
+.product-summary { font-size: 0.9em; color: var(--cor-texto-suave); flex-grow: 1; margin-bottom: 15px; }
+
+/* Seção de Preço */
+.price-section { margin-bottom: 15px; }
+.old-price { font-size: 1em; color: #95a5a6; text-decoration: line-through; }
+.current-price-line { display: flex; align-items: baseline; gap: 10px; }
+.current-price { font-size: 2em; font-weight: 700; color: #27ae60; }
+.discount-badge { background-color: #e74c3c; color: white; padding: 4px 8px; border-radius: 5px; font-size: 0.8em; font-weight: 600; }
+
+/* Cupom e Frete */
+.coupon-container, .shipping-info {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.9em; color: var(--cor-texto-suave);
+    background-color: var(--cinza-claro);
+    padding: 8px 12px; border-radius: 8px; margin-bottom: 10px;
+}
+.copy-coupon-btn { background-color: var(--cor-primaria); color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.8em; margin-left: auto; }
+
+/* Botões de Compra */
+.buy-buttons-container { display: flex; gap: 10px; margin: 15px 0; }
+.buy-button { flex: 1; padding: 10px; border: none; border-radius: 8px; color: #fff; text-align: center; text-decoration: none; font-weight: 600; font-size: 0.9em; transition: opacity 0.2s; }
+.buy-button:hover { opacity: 0.9; }
+.buy-button.amazon { background-color: #FF9900; }
+.buy-button.mercado-livre { background-color: #FFE600; color: #333; }
+.buy-button.shopee { background-color: #EE4D2D; }
+
+/* Link para detalhes e Selo */
+.details-link { display: block; text-align: right; color: var(--cor-primaria); font-weight: 600; text-decoration: none; margin-top: auto; }
+.no-details-link { height: 1em; } /* Mantém o alinhamento */
+.official-store-tag {
+    position: absolute; top: 15px; left: 15px; padding: 6px 12px;
+    border-radius: 50px; font-size: 0.8em; font-weight: 600;
+    color: var(--text-dark); background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}

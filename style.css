@@ -126,3 +126,238 @@ footer { background-color: var(--cor-escura); color: var(--cor-fundo-claro); tex
     font-size: 1.05em;
     line-height: 1.7;
 }
+/* --- ESTILOS PARA BOTÕES DE COMPRA (CTA) --- */
+.cta-container {
+    max-width: 800px;
+    margin: 0 auto 40px auto;
+    padding: 25px;
+    background-color: var(--cinza-claro);
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+.cta-container h4 {
+    text-align: center;
+    font-size: 1.2em;
+    color: var(--cor-texto-suave);
+    margin-bottom: 20px;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 50px;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    text-align: center;
+}
+
+.cta-button:hover {
+    transform: translateY(-3px);
+    opacity: 0.9;
+}
+
+/* Cores específicas das marcas */
+.cta-button.amazon { background-color: #FF9900; }
+.cta-button.mercado-livre { background-color: #FFE600; color: #333; }
+.cta-button.shopee { background-color: #EE4D2D; }
+/* ============================================= */
+/* --- ESTILOS PARA A SECÇÃO DE CATEGORIAS --- */
+/* ============================================= */
+
+.categories-section-v2 {
+    padding: 60px 0;
+    background-color: var(--cor-fundo-claro);
+}
+
+.category-grid-v2 {
+    display: grid;
+    /* Cria 4 colunas em ecrãs grandes e 2 em ecrãs mais pequenos */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+.category-card-v2 {
+    position: relative; /* Essencial para o efeito de sobreposição */
+    display: block;
+    height: 350px;
+    border-radius: 12px;
+    overflow: hidden; /* Garante que a imagem não saia dos cantos arredondados */
+    box-shadow: var(--sombra);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+}
+
+.category-card-v2:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.category-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Faz a imagem cobrir todo o espaço sem distorcer */
+    transition: transform 0.4s ease;
+}
+
+.category-card-v2:hover .category-card-img {
+    transform: scale(1.05); /* Efeito de zoom na imagem ao passar o rato */
+}
+
+.category-card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Gradiente para escurecer a imagem e garantir a legibilidade do texto */
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 60%);
+}
+
+.category-card-title {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    font-size: 1.8em;
+    color: var(--cor-fundo-claro);
+    font-weight: 700;
+}
+/* ============================================= */
+/* --- ESTILOS PARA O CARD PLATINA --- */
+/* ============================================= */
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.product-card {
+    background: var(--cor-fundo-claro);
+    border-radius: 12px;
+    box-shadow: var(--sombra);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.card-image-wrapper {
+    position: relative;
+}
+.product-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.official-store-tag {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    padding: 6px 12px;
+    border-radius: 50px;
+    font-size: 0.8em;
+    font-weight: 600;
+    color: var(--text-dark);
+    /* Efeito de Vidro Fosco */
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.card-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.product-title {
+    font-size: 1.4em;
+    color: var(--cor-texto);
+    margin-bottom: 10px;
+}
+.product-summary {
+    font-size: 0.95em;
+    color: var(--cor-texto-suave);
+    flex-grow: 1; /* Empurra o resto do conteúdo para baixo */
+    margin-bottom: 20px;
+}
+
+.price-container {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+.old-price {
+    font-size: 1em;
+    color: var(--cor-texto-suave);
+    text-decoration: line-through;
+}
+.current-price {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #27ae60; /* Verde para "bom negócio" */
+}
+.discount-badge {
+    background-color: #e74c3c; /* Vermelho para urgência */
+    color: white;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 0.8em;
+    font-weight: 600;
+}
+
+.coupon-container {
+    background-color: var(--cinza-claro);
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.copy-coupon-btn {
+    background-color: var(--cor-primaria);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.8em;
+}
+
+.shipping-info {
+    font-size: 0.9em;
+    color: var(--cor-texto-suave);
+    margin-bottom: 20px;
+}
+
+.details-link {
+    display: block;
+    margin-top: auto; /* Alinha no final do card */
+    text-align: right;
+    color: var(--cor-primaria);
+    font-weight: 600;
+    text-decoration: none;
+}
+.details-link:hover {
+    text-decoration: underline;
+}

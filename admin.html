@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Achado Digital</title>
-    <link rel="stylesheet" href="style.css">
-    
+    <link rel="stylesheet" href="../style.css"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    
     <script src="https://cdn.tiny.cloud/1/0fph4iazf7q4z28p3pi67nuhxssua5xdqsshmqs7ne0kqlte/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     
     <style>
@@ -30,26 +30,22 @@
         .content-header h1 { color: var(--text-dark); }
         .admin-panel { background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
         #auth-view, #admin-dashboard-view { display: none; }
-        
         #articles-list ul { list-style: none; padding: 0; }
-        #articles-list li { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid var(--border-color); transition: background-color 0.2s ease; }
-        #articles-list li:last-child { border-bottom: none; }
-        #articles-list li:hover { background-color: #fcfcfc; }
-        .article-actions button { font-size: 0.9em; padding: 8px 15px; margin-left: 10px; border-radius: 5px; color: white; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; }
-        .btn-edit { background-color: var(--blue); } .btn-edit:hover { background-color: var(--blue-hover); }
-        .btn-delete { background-color: var(--red); } .btn-delete:hover { background-color: var(--red-hover); }
-        
+        #articles-list li { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid var(--border-color); }
+        .article-actions button { font-size: 0.9em; padding: 8px 15px; margin-left: 10px; border-radius: 5px; color: white; border: none; cursor: pointer; }
+        .btn-edit { background-color: var(--blue); }
+        .btn-delete { background-color: var(--red); }
         .form-title { border-bottom: 2px solid var(--accent); padding-bottom: 10px; margin-bottom: 25px; font-size: 1.8em; color: var(--text-dark); }
         .form-group { margin-bottom: 20px; }
-        label { display: block; font-weight: 600; color: var(--admin-text); margin-bottom: 8px; }
-        input[type="text"], input[type="email"], input[type="password"], textarea { width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 5px; font-size: 1em; transition: border-color 0.2s, box-shadow 0.2s; }
-        input:focus, textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(244, 156, 44, 0.2); outline: none; }
-        #image-preview { margin-top: 15px; max-width: 200px; max-height: 200px; border-radius: 5px; border: 2px dashed var(--border-color); padding: 5px; display: none; }
-        
-        button { background-color: var(--accent); border-radius: 50px; color: white; border: none; padding: 12px 25px; cursor: pointer; font-weight: 500; transition: background-color 0.2s ease; }
-        button:hover { background-color: var(--accent-hover); }
-        #logout-btn { background-color: var(--text-light); } #logout-btn:hover { background-color: var(--text-dark); }
-        #cancel-edit-btn { background-color: var(--gray); } #cancel-edit-btn:hover { background-color: var(--gray-hover); }
+        label { display: block; font-weight: 600; color: var(--text-dark); margin-bottom: 8px; }
+        input, select, textarea { width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 5px; font-size: 1em; }
+        button { background-color: var(--accent); border-radius: 50px; color: white; border: none; padding: 12px 25px; cursor: pointer; font-weight: 500; }
+        #logout-btn { background-color: var(--text-light); }
+        #cancel-edit-btn { background-color: var(--gray); }
+        /* NOVOS ESTILOS */
+        .form-section-title { font-size: 1.2em; color: var(--accent); border-bottom: 2px solid var(--accent); padding-bottom: 5px; margin-top: 30px; margin-bottom: 20px;}
+        .form-group-checkbox { display: flex; align-items: center; gap: 10px; }
+        .form-group-checkbox input[type="checkbox"] { width: auto; height: auto; }
     </style>
 </head>
 <body>
@@ -58,8 +54,8 @@
         <div class="admin-panel" style="width: 400px;">
             <h2 class="form-title">Login</h2>
             <form id="login-form">
-                <div class="form-group"><label for="email">Email</label><input type="email" id="email" required></div>
-                <div class="form-group"><label for="password">Senha</label><input type="password" id="password" required></div>
+                <div class="form-group"><label for="login-email">Email</label><input type="email" id="login-email" required></div>
+                <div class="form-group"><label for="login-password">Senha</label><input type="password" id="login-password" required></div>
                 <button type="submit">Entrar</button>
             </form>
         </div>
@@ -70,8 +66,6 @@
             <h2>Achado Digital</h2>
             <nav class="sidebar-nav">
                 <a href="#" class="active"><i class="fa-solid fa-file-lines"></i> Artigos</a>
-                <a href="#"><i class="fa-solid fa-tags"></i> Categorias (em breve)</a>
-                <a href="#"><i class="fa-solid fa-chart-line"></i> Analytics (em breve)</a>
             </nav>
             <button id="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Sair</button>
         </aside>
@@ -90,15 +84,52 @@
                 <h2 id="form-main-title" class="form-title"></h2>
                 <form id="article-form">
                     <input type="hidden" id="article-id">
+                    
+                    <h3 class="form-section-title">Informações Básicas</h3>
                     <div class="form-group"><label for="title">Título do Artigo</label><input type="text" id="title" required></div>
-                    <div class="form-group"><label for="category">Categoria</label><input type="text" id="category" required></div>
+                    <div class="form-group">
+                        <label for="category">Categoria</label>
+                        <select id="category" required>
+                            <option value="" disabled selected>Escolha uma categoria</option>
+                            <option value="Tecnologia">Tecnologia</option>
+                            <option value="Casa">Casa</option>
+                            <option value="Beleza">Beleza</option>
+                            <option value="Comparativos">Comparativos</option>
+                            <option value="Ofertas">Ofertas</option>
+                        </select>
+                    </div>
                     <div class="form-group"><label for="summary">Resumo</label><textarea id="summary" rows="3" required></textarea></div>
                     <div class="form-group">
                         <label for="image_file">Imagem Principal</label>
                         <input type="file" id="image_file" accept="image/png, image/jpeg, image/webp">
-                        <img id="image-preview" src="#" alt="Pré-visualização" style="display: none;">
+                        <img id="image-preview" src="#" alt="Pré-visualização" style="display: none; margin-top: 15px; max-width: 200px;">
                     </div>
-                    <div class="form-group"><label for="full_content">Conteúdo Completo</label><textarea id="full_content" rows="20"></textarea></div>
+                    
+                    <h3 class="form-section-title">Detalhes do Produto (Card Platina)</h3>
+                    <div class="form-group-checkbox">
+                        <input type="checkbox" id="is_official_store">
+                        <label for="is_official_store">Este produto é de uma loja oficial?</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Preço Original (Ex: 99.90)</label>
+                        <input type="number" step="0.01" id="price" placeholder="Apenas números">
+                    </div>
+                    <div class="form-group">
+                        <label for="discount_price">Preço Promocional (Opcional)</label>
+                        <input type="number" step="0.01" id="discount_price" placeholder="Deixe em branco se não houver desconto">
+                    </div>
+                    <div class="form-group">
+                        <label for="coupon_code">Código do Cupom (Opcional)</label>
+                        <input type="text" id="coupon_code" placeholder="Ex: ACHADO15OFF">
+                    </div>
+                    <div class="form-group">
+                        <label for="shipping_info">Informação do Frete (Opcional)</label>
+                        <input type="text" id="shipping_info" placeholder="Ex: Frete grátis para todo o Brasil">
+                    </div>
+
+                    <h3 class="form-section-title">Conteúdo Completo da Análise</h3>
+                    <div class="form-group"><textarea id="full_content" rows="20"></textarea></div>
+                    
                     <div class="form-actions">
                         <button type="submit" id="submit-btn"></button>
                         <button type="button" id="cancel-edit-btn">Cancelar</button>

@@ -12,17 +12,40 @@
 </head>
 <body>
     <header>
-        </header>
+        <div class="container">
+            <a href="../index.html" class="logo-link">
+                <img src="../img/png.svg" alt="Logo Achado Digital" class="logo">
+                <h1>Achado Digital</h1>
+            </a>
+            <nav class="main-nav">
+                <a href="produtos.html">Produtos</a>
+                <a href="blogs.html">Blog</a>
+                <a href="ofertas.html">Ofertas</a>
+            </nav>
+            <div class="top-nav">
+                <a href="https://instagram.com" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://pinterest.com" target="_blank" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+                <a href="fale-conosco.html" class="contact-link">Fale Conosco</a>
+            </div>
+        </div>
+    </header>
+
     <main>
         <div class="container">
             <h2 class="page-title">Blog Achado Digital</h2>
             <p class="page-subtitle">Todos os nossos reviews, guias e dicas em um só lugar.</p>
+            
             <div id="article-grid-container" class="article-grid"></div>
             <div id="article-view-container" style="display: none;"></div>
         </div>
     </main>
+    
     <footer>
-        </footer>
+        <div class="container">
+            <p>&copy; 2025 Achado Digital. Feito com 🧡 para economizar de verdade.</p>
+        </div>
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="blog.js"></script>
 </body>
